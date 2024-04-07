@@ -12,7 +12,7 @@
 
 // stop = setTimeout(() => {
 //     recursive()
-    
+
 //     if (i == 11) {
 //         clearInterval(stop)
 //     }
@@ -20,7 +20,7 @@
 
 // recursive()
 
- 
+
 const hours = document.querySelector('.hours')
 const minutes = document.querySelector('.minutes')
 
@@ -34,14 +34,14 @@ function clock() {
     let minuts = time.getMinutes()
     let sec = time.getSeconds()
 
-    hours.innerHTML = hour 
+    hours.innerHTML = hour
     minutes.innerHTML = minuts
 
     if (hour < 10) {
         hours.innerHTML = "0" + hour
     }
     if (minutes < 10) {
-        minutes.innerHTML = "0" + minuts        
+        minutes.innerHTML = "0" + minuts
     }
 
     s.style.transform = `rotate(${sec * 6}deg)`
@@ -64,13 +64,66 @@ const tabsItem = [...document.querySelectorAll('.tabsItem')]
 const tabsContentItem = [...document.querySelectorAll('.tabsContentItem')]
 
 for (let i = 0; i < tabsItem.length; i++) {
-    tabsItem[i].addEventListener('click', function() {
+    tabsItem[i].addEventListener('click', function () {
         for (let k = 0; k < tabsContentItem.length; k++) {
-            
+
             tabsItem[k].classList.remove('active')
             tabsContentItem[k].classList.remove('active')
         }
         tabsItem[i].classList.add('active')
         tabsContentItem[i].classList.add('active')
-    })    
+    })
 }
+
+
+
+
+// Secudomer
+
+const stopwatchBtn = document.querySelector('.stopwatch__btn')
+const tabsLinkSpan = document.querySelector('.tabsLink__span')
+let stopwatchHours = document.querySelector('.stopwatch__hours')
+let stopwatchMinutes = document.querySelector('.stopwatch__minutes')
+let stopwatchSeconds = document.querySelector('.stopwatch__seconds')
+
+stopwatchBtn.addEventListener('click', function () {
+    if (stopwatchBtn.innerHTML == "start") {
+        stopwatchBtn.innerHTML = "stop"
+        tabsLinkSpan.classList.add('active')
+        startTimer()
+    } else if (stopwatchBtn.innerHTML == "stop") {
+        stopwatchBtn.innerHTML = "clear"
+        tabsLinkSpan.classList.add('active_clear')
+        tabsLinkSpan.classList.remove('active')
+        clearInterval(stop)
+    } else if (stopwatchBtn.innerHTML == "clear") {
+        stopwatchBtn.innerHTML = "start"
+        tabsLinkSpan.classList.remove('active_clear')
+        stopwatchSeconds.innerHTML = 0
+        stopwatchMinutes.innerHTML = 0
+        stopwatchHours.innerHTML = 0
+    }
+})
+let stop;
+function startTimer() {
+    stopwatchSeconds.innerHTML++
+    if (stopwatchSeconds.innerHTML > 99) {
+        stopwatchSeconds.innerHTML = 0
+        stopwatchMinutes.innerHTML++
+        if (stopwatchMinutes.innerHTML > 59) {
+            stopwatchMinutes.innerHTML = 0
+            stopwatchHours.innerHTML++
+        }
+    }
+
+
+    stop = setTimeout(() => {
+        startTimer()
+    }, 10);
+}
+
+// startTimer()
+
+
+
+
